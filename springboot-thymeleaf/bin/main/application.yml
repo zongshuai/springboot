@@ -1,0 +1,15 @@
+server:
+  port: 1994
+logging:
+  config: classpath:log4j2-spring.xml
+spring:
+  thymeleaf:
+    # 热部署静态文件
+    cache: false
+    # 使用HTML5标准
+    encoding: UTF-8
+    # THYMELEAF 
+    mode: html5
+
+    
+  

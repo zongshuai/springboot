@@ -1,0 +1,11 @@
+server:
+  port: 1996 
+logging:
+  config: classpath:log4j2-spring.xml
+spring:
+  data:
+    elasticsearch:
+      # elastic的节点名字
+      cluster-name: elastic2.4
+      # elastic的节点IP地址
+      cluster-nodes: 192.168.32.154:9300

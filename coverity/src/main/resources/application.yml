@@ -1,0 +1,44 @@
+server:
+  port: 8010
+spring:
+    activemq:
+        broker-url: tcp://192.168.150.196:61616
+        user: admin
+        password: admin
+        pool:
+         # 使用flase,此处改为true报错
+          enabled: false
+          max-connections: 10
+    datasource:
+      username: root
+      password: rootzs
+      url: jdbc:mysql://localhost:3306/detection?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+      driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: cn.zshuai.entity
+mq:
+  revename: task_cov
+# 本地上传的文件压缩包路径
+upload_dir: /uploadir/
+# json在本地的保存路径
+save_path: /uploadir/json/
+# 生成的Excel的本地保存路径
+excel_save_path: /report/ExeclDir/OneExecl/
+ftp: 
+  # 服务器参数
+  host: 192.168.150.249
+  username: root
+  password: iie549
+  # 远程上传的文件目标路径
+  upload_path: /home/sims/2019OS/idir/
+  #upload_path: /uploadir/
+  # 远程解压文件后的路径
+  unzip_path: /home/sims/2019OS/idir/
+  #unzip_path: /unzipdir/idir/
+  # 下载json文件的名字
+  jsonName: result.json
+  # shell 脚本名字
+  shell_name: cov.sh
+  # shell脚本所在目录
+  shell_path: /home/sims/2019OS/

@@ -1,0 +1,30 @@
+server:
+  port: 1995
+logging:
+  config: classpath:log4j2-spring.xml
+spring:
+  thymeleaf:
+    # 热部署静态文件
+    cache: false
+    # 使用HTML5标准
+    encoding: UTF-8
+    # THYMELEAF 
+    mode: html5
+  datasource:
+        url: jdbc:mysql://localhost:3306/blogdb?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+        username: root
+        password: rootzs
+        driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+     show-sql: true
+     # ddl-auto:create----每次运行该程序，没有表格会新建表格，表内有数据会清空,先删除再新建
+     # ddl-auto:create-drop----每次程序结束的时候会清空表
+     # ddl-auto:update----每次运行程序，没有表格会新建表格，表内有数据不会清空，只会更新
+     # ddl-auto:validate----运行程序会校验数据与数据库的字段类型是否相同，不同会报错
+     hibernate:
+        ddl-auto: create-drop 
+  h2:
+    console:
+      enabled: true
+  
+  

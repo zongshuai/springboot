@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.zshuai.dao.TaskMapper" >
+  <resultMap id="BaseResultMap" type="cn.zshuai.entity.Task" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bname" property="bname" jdbcType="VARCHAR" />
+    <result column="qname" property="qname" jdbcType="VARCHAR" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+    <result column="hname" property="hname" jdbcType="VARCHAR" />
+    <result column="qsid" property="qsid" jdbcType="INTEGER" />
+    <result column="hsid" property="hsid" jdbcType="INTEGER" />
+    <result column="rsid" property="rsid" jdbcType="INTEGER" />
+    <result column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="bid" property="bid" jdbcType="INTEGER" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="did" property="did" jdbcType="INTEGER" />
+    <result column="astatus" property="astatus" jdbcType="INTEGER" />
+    <result column="bstatus" property="bstatus" jdbcType="INTEGER" />
+    <result column="cstatus" property="cstatus" jdbcType="INTEGER" />
+    <result column="dstatus" property="dstatus" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, bname, qname, cname, hname, qsid, hsid, rsid, aid, bid, cid, did, astatus, bstatus, 
+    cstatus, dstatus, status, url, time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.zshuai.entity.TaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.zshuai.entity.TaskExample" >
+    delete from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.zshuai.entity.Task" >
+    insert into task (id, bname, qname, 
+      cname, hname, qsid, 
+      hsid, rsid, aid, bid, 
+      cid, did, astatus, 
+      bstatus, cstatus, dstatus, 
+      status, url, time
+      )
+    values (#{id,jdbcType=INTEGER}, #{bname,jdbcType=VARCHAR}, #{qname,jdbcType=VARCHAR}, 
+      #{cname,jdbcType=VARCHAR}, #{hname,jdbcType=VARCHAR}, #{qsid,jdbcType=INTEGER}, 
+      #{hsid,jdbcType=INTEGER}, #{rsid,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER}, #{bid,jdbcType=INTEGER}, 
+      #{cid,jdbcType=INTEGER}, #{did,jdbcType=INTEGER}, #{astatus,jdbcType=INTEGER}, 
+      #{bstatus,jdbcType=INTEGER}, #{cstatus,jdbcType=INTEGER}, #{dstatus,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.zshuai.entity.Task" >
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bname != null" >
+        bname,
+      </if>
+      <if test="qname != null" >
+        qname,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+      <if test="hname != null" >
+        hname,
+      </if>
+      <if test="qsid != null" >
+        qsid,
+      </if>
+      <if test="hsid != null" >
+        hsid,
+      </if>
+      <if test="rsid != null" >
+        rsid,
+      </if>
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="did != null" >
+        did,
+      </if>
+      <if test="astatus != null" >
+        astatus,
+      </if>
+      <if test="bstatus != null" >
+        bstatus,
+      </if>
+      <if test="cstatus != null" >
+        cstatus,
+      </if>
+      <if test="dstatus != null" >
+        dstatus,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bname != null" >
+        #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="qname != null" >
+        #{qname,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="hname != null" >
+        #{hname,jdbcType=VARCHAR},
+      </if>
+      <if test="qsid != null" >
+        #{qsid,jdbcType=INTEGER},
+      </if>
+      <if test="hsid != null" >
+        #{hsid,jdbcType=INTEGER},
+      </if>
+      <if test="rsid != null" >
+        #{rsid,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="did != null" >
+        #{did,jdbcType=INTEGER},
+      </if>
+      <if test="astatus != null" >
+        #{astatus,jdbcType=INTEGER},
+      </if>
+      <if test="bstatus != null" >
+        #{bstatus,jdbcType=INTEGER},
+      </if>
+      <if test="cstatus != null" >
+        #{cstatus,jdbcType=INTEGER},
+      </if>
+      <if test="dstatus != null" >
+        #{dstatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.zshuai.entity.TaskExample" resultType="java.lang.Integer" >
+    select count(*) from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update task
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bname != null" >
+        bname = #{record.bname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qname != null" >
+        qname = #{record.qname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cname != null" >
+        cname = #{record.cname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hname != null" >
+        hname = #{record.hname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qsid != null" >
+        qsid = #{record.qsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.hsid != null" >
+        hsid = #{record.hsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rsid != null" >
+        rsid = #{record.rsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.aid != null" >
+        aid = #{record.aid,jdbcType=INTEGER},
+      </if>
+      <if test="record.bid != null" >
+        bid = #{record.bid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cid != null" >
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
+      <if test="record.did != null" >
+        did = #{record.did,jdbcType=INTEGER},
+      </if>
+      <if test="record.astatus != null" >
+        astatus = #{record.astatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.bstatus != null" >
+        bstatus = #{record.bstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.cstatus != null" >
+        cstatus = #{record.cstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.dstatus != null" >
+        dstatus = #{record.dstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update task
+    set id = #{record.id,jdbcType=INTEGER},
+      bname = #{record.bname,jdbcType=VARCHAR},
+      qname = #{record.qname,jdbcType=VARCHAR},
+      cname = #{record.cname,jdbcType=VARCHAR},
+      hname = #{record.hname,jdbcType=VARCHAR},
+      qsid = #{record.qsid,jdbcType=INTEGER},
+      hsid = #{record.hsid,jdbcType=INTEGER},
+      rsid = #{record.rsid,jdbcType=INTEGER},
+      aid = #{record.aid,jdbcType=INTEGER},
+      bid = #{record.bid,jdbcType=INTEGER},
+      cid = #{record.cid,jdbcType=INTEGER},
+      did = #{record.did,jdbcType=INTEGER},
+      astatus = #{record.astatus,jdbcType=INTEGER},
+      bstatus = #{record.bstatus,jdbcType=INTEGER},
+      cstatus = #{record.cstatus,jdbcType=INTEGER},
+      dstatus = #{record.dstatus,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      url = #{record.url,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.zshuai.entity.Task" >
+    update task
+    <set >
+      <if test="bname != null" >
+        bname = #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="qname != null" >
+        qname = #{qname,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="hname != null" >
+        hname = #{hname,jdbcType=VARCHAR},
+      </if>
+      <if test="qsid != null" >
+        qsid = #{qsid,jdbcType=INTEGER},
+      </if>
+      <if test="hsid != null" >
+        hsid = #{hsid,jdbcType=INTEGER},
+      </if>
+      <if test="rsid != null" >
+        rsid = #{rsid,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null" >
+        aid = #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="did != null" >
+        did = #{did,jdbcType=INTEGER},
+      </if>
+      <if test="astatus != null" >
+        astatus = #{astatus,jdbcType=INTEGER},
+      </if>
+      <if test="bstatus != null" >
+        bstatus = #{bstatus,jdbcType=INTEGER},
+      </if>
+      <if test="cstatus != null" >
+        cstatus = #{cstatus,jdbcType=INTEGER},
+      </if>
+      <if test="dstatus != null" >
+        dstatus = #{dstatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.zshuai.entity.Task" >
+    update task
+    set bname = #{bname,jdbcType=VARCHAR},
+      qname = #{qname,jdbcType=VARCHAR},
+      cname = #{cname,jdbcType=VARCHAR},
+      hname = #{hname,jdbcType=VARCHAR},
+      qsid = #{qsid,jdbcType=INTEGER},
+      hsid = #{hsid,jdbcType=INTEGER},
+      rsid = #{rsid,jdbcType=INTEGER},
+      aid = #{aid,jdbcType=INTEGER},
+      bid = #{bid,jdbcType=INTEGER},
+      cid = #{cid,jdbcType=INTEGER},
+      did = #{did,jdbcType=INTEGER},
+      astatus = #{astatus,jdbcType=INTEGER},
+      bstatus = #{bstatus,jdbcType=INTEGER},
+      cstatus = #{cstatus,jdbcType=INTEGER},
+      dstatus = #{dstatus,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
