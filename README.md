@@ -6,4 +6,4 @@
 * git remote add origin url
 * git push -u origin master
 * git remote rm origin   //删除origin
-* git remote add origin git@github.com:Georgecheng123/demo.git   //重新添加origin
+* git remote add origin url   //重新添加origin
