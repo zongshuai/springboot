@@ -95,9 +95,6 @@ public class UserController {
 
 	/**
 	 * 删除用户
-	 * 
-	 * @param id
-	 * @return
 	 */
 	@GetMapping(value = "delete/{id}")
 	public ModelAndView delete(@PathVariable("id") Long id, Model model) {
@@ -109,9 +106,6 @@ public class UserController {
 
 	/**
 	 * 修改用户
-	 * 
-	 * @param user
-	 * @return
 	 */
 	@GetMapping(value = "modify/{id}")
 	public ModelAndView modifyForm(@PathVariable("id") Long id, Model model) {
