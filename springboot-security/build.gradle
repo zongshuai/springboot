@@ -1,16 +1,32 @@
+// buildscript 代码块中的脚本优先执行 
 buildscript {
+	// ext 用来定义动态属性
+	ext{
+		springBootVersion = '1.5.21.RELEASE'
+	}
+	// 自定义  Thymeleaf 和 Thymeleaf Layout Dialect 的版本
+	ext['thymeleaf.version'] = '3.0.3.RELEASE'
+	ext['thymeleaf-layout-dialect.version'] = '2.2.0'
+	
+	// 自定义  Hibernate 的版本
+	ext['hibernate.version'] = '5.2.8.Final'
+	
+	// 使用了 Maven 的中央仓库（你也可以指定其他仓库）
 	repositories {
-		mavenCentral()
+		//mavenCentral()
+		maven {
+			url 'http://maven.aliyun.com/nexus/content/groups/public/'
+		}
 	}
 	dependencies {
-		classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.21.RELEASE'
+		// classpath 声明说明了在执行其余的脚本时，ClassLoader 可以使用这些依赖项
+		classpath ("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
 
-plugins {
-	id 'java'
-}
-
+// 使用插件
+apply plugin: 'java'
+apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 group = 'com.zshuai'
@@ -18,13 +34,40 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
-	mavenCentral()
+	maven {
+		url 'http://maven.aliyun.com/nexus/content/groups/public/'
+	}
+}
+configurations {
+	//remove default logger
+	all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 }
 
+
 dependencies {
-	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	compile 'org.springframework.boot:spring-boot-starter-web'
-	runtime 'mysql:mysql-connector-java'
-	testCompile 'org.springframework.boot:spring-boot-starter-test'
+	
+	// 该依赖对于编译发行是必须的
+	compile('org.springframework.boot:spring-boot-starter-web'){
+		exclude module: 'spring-boot-starter-logging'
+	}
+	//添加log4j2依赖
+	compile('org.springframework.boot:spring-boot-starter-log4j2:1.5.2.RELEASE')
+ 
+ 	// 添加Spring Security依赖
+ 	compile('org.springframework.boot:spring-boot-starter-security')
+ 	
+	// 添加 Thymeleaf 的依赖
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+
+	// 添加 Thymeleaf spring security的依赖
+	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.2.RELEASE')
+	
+	// 添加 Spring Data JPA 的依赖
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	
+	// 添加 MySQL连接驱动 的依赖
+	compile('mysql:mysql-connector-java:6.0.5')
+
+	// 该依赖对于编译测试是必须的，默认包含编译产品依赖和编译时依
+	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
